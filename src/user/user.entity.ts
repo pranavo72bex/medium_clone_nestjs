@@ -4,12 +4,16 @@ import { hash } from 'bcrypt'
 export class UserEntity {
     @PrimaryGeneratedColumn()
     id: number;
+
     @Column()
-    username: string;
+    email: string;
+
     @Column({ default: '' })
     bio: string;
+
     @Column({ default: '' })
     image: string;
+
     @Column()
     password: string;
     @BeforeInsert()
