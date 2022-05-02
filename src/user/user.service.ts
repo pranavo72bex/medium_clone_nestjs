@@ -14,4 +14,5 @@ export class UserService {
         Object.assign(newUser, createUserDto);
         return await this.userRepository.save(newUser);
     }
+
 }
