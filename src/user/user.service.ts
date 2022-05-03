@@ -7,7 +7,7 @@ import { sign } from "jsonwebtoken";
 @Injectable()
 export class UserService {
     constructor(@InjectRepository(UserEntity)
-    private readonly userRepository: Repository<UserEntity>
+    private readonly userRepository: Repository<UserEntity>,
     ) { }
     async createUser(createUserDto: CreateUserDto) {
         const newUser = new UserEntity();
@@ -27,6 +27,6 @@ export class UserService {
             id: user.id,
             username: user.username,
             email: user.email,
-        }, process.env.JWT_KEY)
+        }, 'JWT_KEY')
     }
 }

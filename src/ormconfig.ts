@@ -9,7 +9,8 @@ const config: DataSourceOptions = {
     password: process.env.password,
     database: 'mediumclone',
     entities: [__dirname + '/**/*.entity{.ts,.js}'],
-    synchronize: false,
+    synchronize: true,
+    dropSchema: true
 
 };
 
