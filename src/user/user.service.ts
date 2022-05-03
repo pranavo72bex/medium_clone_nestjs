@@ -4,6 +4,7 @@ import { Repository } from "typeorm";
 import { CreateUserDto } from "./dto/createUser.dto";
 import { UserEntity } from "./user.entity";
 import { sign } from "jsonwebtoken";
+import { UserResponseInterface } from "./interface/user.interface";
 @Injectable()
 export class UserService {
     constructor(@InjectRepository(UserEntity)
@@ -14,7 +15,7 @@ export class UserService {
         Object.assign(newUser, createUserDto);
         return await this.userRepository.save(newUser);
     }
-    buildUserResponse(user: UserEntity): any {
+    buildUserResponse(user: UserEntity): UserResponseInterface {
         return {
             user: {
                 ...user,
