@@ -12,4 +12,10 @@ export class UserController {
         const user = await this.userService.createUser(createUserDto)
         return this.userService.buildUserResponse(user);
     }
+    @Post('/users/login')
+    async login(@Body('user') loginDto: any) {
+        const user = await this.userService.login(loginDto);
+        return this.userService.buildUserResponse(user)
+    }
+
 }

@@ -5,6 +5,8 @@ import { CreateUserDto } from "./dto/createUser.dto";
 import { UserEntity } from "./user.entity";
 import { sign } from "jsonwebtoken";
 import { UserResponseInterface } from "./interface/user.interface";
+import { LoginUserDto } from "./dto/loginuser.dto";
+import { compare } from "bcrypt"
 @Injectable()
 export class UserService {
     constructor(@InjectRepository(UserEntity)
@@ -42,5 +44,23 @@ export class UserService {
             username: user.username,
             email: user.email,
         }, 'JWT_KEY')
+    }
+
+    async login(loginUsersDto: LoginUserDto): Promise<UserEntity> {
+
+        const user = await this.userRepository.findOne({
+            where: {
+                email: loginUsersDto.email,
+            }
+        })
+        if (!user) {
+            throw new HttpException('Credentail not valid', HttpStatus.UNPROCESSABLE_ENTITY)
+        }
+        const isPasswordCorrect = await compare(loginUsersDto.password, user.password)
+        if (!isPasswordCorrect) {
+            throw new HttpException('Invalid password', HttpStatus.UNPROCESSABLE_ENTITY)
+        }
+
+        return user;
     }
 }
