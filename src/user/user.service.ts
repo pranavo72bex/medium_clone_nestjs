@@ -30,6 +30,11 @@ export class UserService {
         Object.assign(newUser, createUserDto);
         return await this.userRepository.save(newUser);
     }
+
+    async findUserById(id: number): Promise<UserEntity> {
+        return this.userRepository.findOne({ where: { id } });
+    }
+
     buildUserResponse(user: UserEntity): UserResponseInterface {
         return {
             user: {
